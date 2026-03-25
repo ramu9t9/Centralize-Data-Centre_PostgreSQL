@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Database files
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.db.tmp
+
+# Logs
+*.log
+logs/
+data/*.log
+vps_system/logs/
+
+# Data directory (except calendar files)
+data/backups/
+data/*.db
+data/*.log
+data/*.txt
+data/*.tmp
+
+# Archive folder (temporary files)
+archive/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Environment variables
+.env
+.env.local
+
+# Test files
+test_*.py
+*_test.py
+
