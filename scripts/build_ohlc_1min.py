@@ -19,6 +19,7 @@ import argparse
 import sys
 from datetime import date, datetime, time, timedelta
 from pathlib import Path
+from typing import Optional
 
 import pandas as pd
 import psycopg2.extras
@@ -45,7 +46,7 @@ def date_to_ts_range_utc(d: date):
     return ts_lo.strftime("%Y-%m-%d %H:%M:%S") + "+00", ts_hi.strftime("%Y-%m-%d %H:%M:%S") + "+00"
 
 
-def get_last_ohlc_minute(conn) -> datetime | None:
+def get_last_ohlc_minute(conn) -> Optional[datetime]:
     """Return MAX(ts) from ohlc_1min (timestamptz), or None if empty."""
     with conn.cursor() as cur:
         cur.execute("SELECT MAX(ts) FROM ohlc_1min")
