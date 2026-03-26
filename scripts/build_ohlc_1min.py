@@ -54,7 +54,7 @@ def get_last_ohlc_minute(conn) -> Optional[datetime]:
     return row[0] if row and row[0] else None
 
 
-def get_min_max_dates_ist(conn, last_bar_ts: datetime | None) -> list[date]:
+def get_min_max_dates_ist(conn, last_bar_ts: Optional[datetime]) -> list[date]:
     """
     Distinct IST calendar dates in ltp_ticks that need processing.
     If last_bar_ts is None, all dates. Else only dates with ticks after last_bar's IST minute.
@@ -77,7 +77,7 @@ def get_min_max_dates_ist(conn, last_bar_ts: datetime | None) -> list[date]:
         return [row[0] for row in cur.fetchall()]
 
 
-def count_ticks_for_date(conn, d: date, last_bar_ts: datetime | None) -> int:
+def count_ticks_for_date(conn, d: date, last_bar_ts: Optional[datetime]) -> int:
     """Count ltp_ticks rows for IST date d; optional filter for ticks after last_bar_ts minute."""
     ts_lo, ts_hi = date_to_ts_range_utc(d)
     if last_bar_ts is None:
@@ -108,7 +108,7 @@ def _last_bar_naive_ist_minute(last_bar_ts: datetime) -> pd.Timestamp:
     return t.replace(tzinfo=None).floor("min")
 
 
-def run_aggregation_for_date(conn, d: date, last_bar_ts: datetime | None) -> int:
+def run_aggregation_for_date(conn, d: date, last_bar_ts: Optional[datetime]) -> int:
     """Aggregate ltp_ticks in Python/pandas, then upsert. ts stored as TIMESTAMPTZ (IST minute start)."""
     ts_lo, ts_hi = date_to_ts_range_utc(d)
     sql = """
